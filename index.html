@@ -151,27 +151,6 @@ already part of the gitignore, so that <em>should</em> never be an issue)</p>
 <p>Rspec is used on this project, which can be run with: <code>bundle exec
 rspec</code></p>
 
-<p>Note: if you see <code>PG::UndefinedFunction: ERROR:  function
-pg_search_dmetaphone(text) does not exist</code> when running rspec:</p>
-<ul><li>
-<p>Make sure your postgres install includes the postgresql-contrib modules
-(for MacOS users: Postgres.app and the postgres brew formula should include
-these modules by default).</p>
-</li><li>
-<p>Run all database migrations</p>
-</li><li>
-<p>If the problem persists in tests after the function-defining migrations
-have been run, you can create the function manually in your test database:</p>
-<ul><li>
-<p>From command line: <code> psql reddot_test </code></p>
-</li><li>
-<p>In psql: <code>   CREATE OR REPLACE FUNCTION pg_search_dmetaphone(text)
-RETURNS text LANGUAGE SQL IMMUTABLE STRICT AS $function$ SELECT
-array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1,
-E&#39;\s+&#39;)))), &#39; &#39;)   $function$; </code></p>
-</li></ul>
-</li></ul>
-
 <h3 id="label-Deployment+instructions">Deployment instructions</h3>
 
 <p>Deployment is done via Capistrano, and can be run with <code>cap
@@ -228,7 +207,7 @@ having to consider the surrounding commits.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Mon Oct 30 14:12:08 2017 by
+  Generated on Mon Oct 30 15:06:39 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.2).
 </div>
