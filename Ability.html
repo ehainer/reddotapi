@@ -108,6 +108,38 @@
 
 
 
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#user-instance_method" title="#user (instance method)">#<strong>user</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute user.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
 
 
 
@@ -118,6 +150,116 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#admin_permissions-instance_method" title="#admin_permissions (instance method)">#<strong>admin_permissions</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#csr_permissions-instance_method" title="#csr_permissions (instance method)">#<strong>csr_permissions</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#employee_permissions-instance_method" title="#employee_permissions (instance method)">#<strong>employee_permissions</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fom_permissions-instance_method" title="#fom_permissions (instance method)">#<strong>fom_permissions</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fs_permissions-instance_method" title="#fs_permissions (instance method)">#<strong>fs_permissions</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -178,7 +320,6 @@
       <pre class="lines">
 
 
-4
 5
 6
 7
@@ -202,8 +343,110 @@
 25
 26
 27
-28
-29
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/ability.rb', line 5</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_user'>user</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='ivar'>@user</span> <span class='op'>=</span> <span class='id identifier rubyid_user'>user</span>
+
+  <span class='kw'>if</span> <span class='ivar'>@user</span><span class='period'>.</span><span class='id identifier rubyid_has_role?'>has_role?</span><span class='lparen'>(</span><span class='symbol'>:admin</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_admin_permissions'>admin_permissions</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>if</span> <span class='ivar'>@user</span><span class='period'>.</span><span class='id identifier rubyid_employee?'>employee?</span>
+    <span class='id identifier rubyid_employee_permissions'>employee_permissions</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>if</span> <span class='ivar'>@user</span><span class='period'>.</span><span class='id identifier rubyid_has_role?'>has_role?</span><span class='lparen'>(</span><span class='symbol'>:csr</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_csr_permissions'>csr_permissions</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>if</span> <span class='ivar'>@user</span><span class='period'>.</span><span class='id identifier rubyid_has_role?'>has_role?</span><span class='lparen'>(</span><span class='symbol'>:fs</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_fs_permissions'>fs_permissions</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>if</span> <span class='ivar'>@user</span><span class='period'>.</span><span class='id identifier rubyid_has_role?'>has_role?</span><span class='lparen'>(</span><span class='symbol'>:fs</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@user</span><span class='period'>.</span><span class='id identifier rubyid_has_role?'>has_role?</span><span class='lparen'>(</span><span class='symbol'>:supervisor</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_fom_permissions'>fom_permissions</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="user=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="user-instance_method">
+  
+    #<strong>user</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute user</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+2
+3
+4</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/ability.rb', line 2</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_user'>user</span>
+  <span class='ivar'>@user</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="admin_permissions-instance_method">
+  
+    #<strong>admin_permissions</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 30
 31
 32
@@ -212,8 +455,82 @@
 35
 36
 37
-38
-39
+38</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/ability.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_admin_permissions'>admin_permissions</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Reminder.html" title="Reminder (class)">Reminder</a></span></span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:locks</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Task.html" title="Task (class)">Task</a></span></span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Account.html" title="Account (class)">Account</a></span></span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Gate.html" title="Gate (class)">Gate</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="csr_permissions-instance_method">
+  
+    #<strong>csr_permissions</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55
+56
+57
+58
+59
+60
+61</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/ability.rb', line 53</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_csr_permissions'>csr_permissions</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Gate.html" title="Gate (class)">Gate</a></span></span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Account.html" title="Account (class)">Account</a></span></span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Reminder.html" title="Reminder (class)">Reminder</a></span></span><span class='comma'>,</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:show</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='symbol'>:facility_status</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='symbol'>:facility_inventory</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='symbol'>:fs_assignments</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="employee_permissions-instance_method">
+  
+    #<strong>employee_permissions</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 40
 41
 42
@@ -225,73 +542,126 @@
 48
 49
 50
-51
-52</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/ability.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'app/models/ability.rb', line 40</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_user'>user</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-
-  <span class='kw'>if</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_has_role?'>has_role?</span><span class='lparen'>(</span><span class='symbol'>:admin</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span>
-    <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Reminder.html" title="Reminder (class)">Reminder</a></span></span>
-    <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:locks</span>
-    <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Task.html" title="Task (class)">Task</a></span></span>
-    <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_employee_permissions'>employee_permissions</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_u'>u</span><span class='op'>|</span>
+    <span class='id identifier rubyid_u'>u</span><span class='period'>.</span><span class='id identifier rubyid_customer?'>customer?</span> <span class='op'>||</span> <span class='id identifier rubyid_u'>u</span> <span class='op'>==</span> <span class='ivar'>@user</span>
   <span class='kw'>end</span>
 
-  <span class='kw'>if</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_employee?'>employee?</span>
-    <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span><span class='comma'>,</span> <span class='label'>customer?:</span> <span class='kw'>true</span>
-    <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Reminder.html" title="Reminder (class)">Reminder</a></span></span>
-    <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:view</span><span class='comma'>,</span> <span class='symbol'>:employee_dashboards</span>
-    <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:show</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Task.html" title="Task (class)">Task</a></span></span>
-    <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:show</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Reminder.html" title="Reminder (class)">Reminder</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span>
+    <span class='id identifier rubyid_r'>r</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='op'>==</span> <span class='ivar'>@user</span>
   <span class='kw'>end</span>
 
-  <span class='kw'>if</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_has_role?'>has_role?</span><span class='lparen'>(</span><span class='symbol'>:csr</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:facility_assignments</span>
-  <span class='kw'>end</span>
-
-  <span class='comment'># Define abilities for the passed in user here. For example:
-</span>  <span class='comment'>#
-</span>  <span class='comment'>#   if user.admin?
-</span>  <span class='comment'>#     can :manage, :all
-</span>  <span class='comment'>#   else
-</span>  <span class='comment'>#     can :read, :all
-</span>  <span class='comment'>#   end
-</span>  <span class='comment'>#
-</span>  <span class='comment'># The first argument to `can` is the action you are giving the user
-</span>  <span class='comment'># permission to do.
-</span>  <span class='comment'># If you pass :manage it will apply to every action. Other common actions
-</span>  <span class='comment'># here are :read, :create, :update and :destroy.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># The second argument is the resource the user can perform the action on.
-</span>  <span class='comment'># If you pass :all it will apply to every resource. Otherwise pass a Ruby
-</span>  <span class='comment'># class of the resource.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># The third argument is an optional hash of conditions to further filter the
-</span>  <span class='comment'># objects.
-</span>  <span class='comment'># For example, here the user can only update published articles.
-</span>  <span class='comment'>#
-</span>  <span class='comment'>#   can :update, Article, :published =&gt; true
-</span>  <span class='comment'>#
-</span>  <span class='comment'># See the wiki for details:
-</span>  <span class='comment'># https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-</span><span class='kw'>end</span></pre>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:view</span><span class='comma'>,</span> <span class='symbol'>:employee_dashboards</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:show</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Task.html" title="Task (class)">Task</a></span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
 </div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="fom_permissions-instance_method">
   
-</div>
+    #<strong>fom_permissions</strong>  &#x21d2; <tt>Object</tt> 
+  
 
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/ability.rb', line 74</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_fom_permissions'>fom_permissions</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_u'>u</span><span class='op'>|</span>
+    <span class='id identifier rubyid_u'>u</span><span class='period'>.</span><span class='id identifier rubyid_has_role?'>has_role?</span><span class='lparen'>(</span><span class='symbol'>:fs</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_u'>u</span><span class='period'>.</span><span class='id identifier rubyid_has_role?'>has_role?</span><span class='lparen'>(</span><span class='symbol'>:supervisor</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Gate.html" title="Gate (class)">Gate</a></span></span>
+
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='symbol'>:facility_status</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='symbol'>:facility_inventory</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:fs_assignments</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="fs_permissions-instance_method">
+  
+    #<strong>fs_permissions</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/ability.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_fs_permissions'>fs_permissions</span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:show</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span>
+    <span class='ivar'>@user</span><span class='period'>.</span><span class='id identifier rubyid_has_role?'>has_role?</span><span class='lparen'>(</span><span class='symbol'>:member</span><span class='comma'>,</span> <span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Account.html" title="Account (class)">Account</a></span></span>
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Gate.html" title="Gate (class)">Gate</a></span></span>
+
+  <span class='id identifier rubyid_can'>can</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='symbol'>:facility_status</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 30 15:06:39 2017 by
+  Generated on Fri Nov 10 12:10:51 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.2).
 </div>

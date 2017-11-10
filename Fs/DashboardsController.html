@@ -161,7 +161,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../ApplicationController.html" title="ApplicationController (class)">ApplicationController</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../ApplicationController.html#view-instance_method" title="ApplicationController#view (method)">#view</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../ApplicationController.html#view-instance_method" title="ApplicationController#view (method)">#view</a></span>, <span class='object_link'><a href="../ApplicationController.html#with_format-instance_method" title="ApplicationController#with_format (method)">#with_format</a></span></p>
 
   
 
@@ -184,12 +184,18 @@
       <pre class="lines">
 
 
-3</pre>
+3
+4
+5
+6</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/controllers/fs/dashboards_controller.rb', line 3</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
+  <span class='ivar'>@page_title</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Facilities</span><span class='tstring_end'>&#39;</span></span>
+  <span class='ivar'>@facilities</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../FacilityDecorator.html" title="FacilityDecorator (class)">FacilityDecorator</a></span></span><span class='period'>.</span><span class='id identifier rubyid_decorate_collection'>decorate_collection</span><span class='lparen'>(</span><span class='id identifier rubyid_current_user'>current_user</span><span class='period'>.</span><span class='id identifier rubyid_facility_group'>facility_group</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -200,7 +206,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 30 15:06:41 2017 by
+  Generated on Fri Nov 10 12:10:53 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.2).
 </div>

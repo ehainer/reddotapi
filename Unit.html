@@ -173,6 +173,79 @@ updated_at   :datetime         not null</code></pre>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#occupied%3F-instance_method" title="#occupied? (instance method)">#<strong>occupied?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Return whether or not the <span class='object_link'><a href="" title="Unit (class)">Unit</a></span> is actively occupied.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reservations-instance_method" title="#reservations (instance method)">#<strong>reservations</strong>  &#x21d2; Array&lt;Occupancy&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Return the current reservations associated with the <span class='object_link'><a href="" title="Unit (class)">Unit</a></span> The order
+returned will be from soonest reservation to most distant.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reserved%3F-instance_method" title="#reserved? (instance method)">#<strong>reserved?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Return whether or not the <span class='object_link'><a href="" title="Unit (class)">Unit</a></span> is currently reserved.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#to_search-instance_method" title="#to_search (instance method)">#<strong>to_search</strong>  &#x21d2; String </a>
     
 
@@ -207,7 +280,7 @@ updated_at   :datetime         not null</code></pre>
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="ApplicationRecord.html#to_taskable-instance_method" title="ApplicationRecord#to_taskable (method)">#to_taskable</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="ApplicationRecord.html#to_resource-instance_method" title="ApplicationRecord#to_resource (method)">#to_resource</a></span>, <span class='object_link'><a href="ApplicationRecord.html#to_taskable-instance_method" title="ApplicationRecord#to_taskable (method)">#to_taskable</a></span></p>
 
   
 
@@ -278,7 +351,228 @@ updated_at   :datetime         not null</code></pre>
       <pre class="code"><span class="info file"># File 'app/models/unit.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_occupancy'>occupancy</span>
-  <span class='ivar'>@occupancy</span> <span class='op'>||=</span> <span class='id identifier rubyid_occupancies'>occupancies</span><span class='period'>.</span><span class='id identifier rubyid_active'>active</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>moved_out_at:</span> <span class='kw'>nil</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_order'>order</span><span class='lparen'>(</span><span class='label'>moved_in_at:</span> <span class='symbol'>:desc</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_take'>take</span>
+  <span class='id identifier rubyid_occupancies'>occupancies</span><span class='period'>.</span><span class='id identifier rubyid_active'>active</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="occupied?-instance_method">
+  
+    #<strong>occupied?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return whether or not the <span class='object_link'><a href="" title="Unit (class)">Unit</a></span> is actively occupied</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p><code>true</code> if currently occupied, <code>false</code> otherwise</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Eric Hainer &lt;eric@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/unit.rb', line 83</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_occupied?'>occupied?</span>
+  <span class='id identifier rubyid_occupancy'>occupancy</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reservations-instance_method">
+  
+    #<strong>reservations</strong>  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="Occupancy.html" title="Occupancy (class)">Occupancy</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return the current reservations associated with the <span class='object_link'><a href="" title="Unit (class)">Unit</a></span> The order
+returned will be from soonest reservation to most distant</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Occupancy.html" title="Occupancy (class)">Occupancy</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Eric Hainer &lt;eric@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/unit.rb', line 62</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reservations'>reservations</span>
+  <span class='const'><span class='object_link'><a href="Occupancy.html" title="Occupancy (class)">Occupancy</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reserved'>reserved</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>unit:</span> <span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reserved?-instance_method">
+  
+    #<strong>reserved?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return whether or not the <span class='object_link'><a href="" title="Unit (class)">Unit</a></span> is currently reserved</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p><code>true</code> if reserved, <code>false</code> otherwise</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Eric Hainer &lt;eric@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+72
+73
+74</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/unit.rb', line 72</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reserved?'>reserved?</span>
+  <span class='id identifier rubyid_reservations'>reservations</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span> <span class='op'>&gt;</span> <span class='int'>0</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -345,12 +639,12 @@ updated_at   :datetime         not null</code></pre>
       <pre class="lines">
 
 
-61
-62
-63</pre>
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/unit.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'app/models/unit.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_search'>to_search</span>
   <span class='id identifier rubyid_unit_number'>unit_number</span>
@@ -365,7 +659,7 @@ updated_at   :datetime         not null</code></pre>
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 30 15:06:39 2017 by
+  Generated on Fri Nov 10 12:10:51 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.2).
 </div>

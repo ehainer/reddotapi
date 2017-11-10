@@ -114,11 +114,14 @@
 content    :text
 user_id    :integer
 created_at :datetime         not null
-updated_at :datetime         not null</code></pre>
+updated_at :datetime         not null
+deleted_at :datetime
+color      :string</code></pre>
 
 <p>Indexes</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_index_reminders_on_user_id'>index_reminders_on_user_id</span>  <span class='lparen'>(</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_index_reminders_on_deleted_at'>index_reminders_on_deleted_at</span>  <span class='lparen'>(</span><span class='id identifier rubyid_deleted_at'>deleted_at</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_index_reminders_on_user_id'>index_reminders_on_user_id</span>     <span class='lparen'>(</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
 </code></pre>
 
 
@@ -134,39 +137,6 @@ updated_at :datetime         not null</code></pre>
 
 
 
-  
-    <h2>
-      Instance Method Summary
-      <small><a href="#" class="summary_toggle">collapse</a></small>
-    </h2>
-
-    <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#timestamp-instance_method" title="#timestamp (instance method)">#<strong>timestamp</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-    </ul>
-  
-
 
   
   
@@ -174,53 +144,17 @@ updated_at :datetime         not null</code></pre>
   
   
   
-  
+  <h2>Method Summary</h2>
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="ApplicationRecord.html#to_taskable-instance_method" title="ApplicationRecord#to_taskable (method)">#to_taskable</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="ApplicationRecord.html#to_resource-instance_method" title="ApplicationRecord#to_resource (method)">#to_resource</a></span>, <span class='object_link'><a href="ApplicationRecord.html#to_taskable-instance_method" title="ApplicationRecord#to_taskable (method)">#to_taskable</a></span></p>
 
   
-
-  <div id="instance_method_details" class="method_details_list">
-    <h2>Instance Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="timestamp-instance_method">
-  
-    #<strong>timestamp</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-19
-20
-21</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'app/models/reminder.rb', line 19</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_timestamp'>timestamp</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Created: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_created_at'>created_at</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>%-m/%-d/%Y %I:%M%p</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 30 15:06:40 2017 by
+  Generated on Fri Nov 10 12:10:52 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.2).
 </div>

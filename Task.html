@@ -89,6 +89,11 @@
 
   
   
+  <dl>
+      <dt>Extended by:</dt>
+      <dd>ActionView::Helpers::FormOptionsHelper</dd>
+  </dl>
+  
   
   
   
@@ -118,7 +123,7 @@ is_system     :boolean          default(FALSE)
 status        :integer          default(&quot;created&quot;)
 taskable_id   :integer
 taskable_type :string
-priority      :integer          default(0)
+priority      :integer          default(&quot;urgent&quot;)
 active_at     :datetime
 created_at    :datetime         not null
 updated_at    :datetime         not null</code></pre>
@@ -152,7 +157,7 @@ updated_at    :datetime         not null</code></pre>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#find_for_any-class_method" title="find_for_any (class method)">.<strong>find_for_any</strong>(**taskable_options)  &#x21d2; Object </a>
+      <a href="#find_for_any-class_method" title="find_for_any (class method)">.<strong>find_for_any</strong>(**taskable_options)  &#x21d2; Array&lt;Task&gt; </a>
     
 
     
@@ -166,7 +171,33 @@ updated_at    :datetime         not null</code></pre>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Finds tasks by <span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span>, <span class='object_link'><a href="Unit.html" title="Unit (class)">Unit</a></span> or <span class='object_link'><a href="User.html" title="User (class)">User</a></span> ids.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#priority_select_options-class_method" title="priority_select_options (class method)">.<strong>priority_select_options</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Return select options for priority selection.</p>
+</div></span>
   
 </li>
 
@@ -183,7 +214,7 @@ updated_at    :datetime         not null</code></pre>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#visible_to-instance_method" title="#visible_to (instance method)">#<strong>visible_to</strong>  &#x21d2; Object </a>
+      <a href="#priority_display-instance_method" title="#priority_display (instance method)">#<strong>priority_display</strong>  &#x21d2; String </a>
     
 
     
@@ -197,7 +228,33 @@ updated_at    :datetime         not null</code></pre>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Return the display value of of the <span class='object_link'><a href="" title="Task (class)">Task</a></span> priority.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#visible_to-instance_method" title="#visible_to (instance method)">#<strong>visible_to</strong>  &#x21d2; Array&lt;User&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Return all users who can see <span class='object_link'><a href="" title="Task (class)">Task</a></span>.</p>
+</div></span>
   
 </li>
 
@@ -214,8 +271,9 @@ updated_at    :datetime         not null</code></pre>
   
   
   
+  
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="ApplicationRecord.html#to_taskable-instance_method" title="ApplicationRecord#to_taskable (method)">#to_taskable</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="ApplicationRecord.html#to_resource-instance_method" title="ApplicationRecord#to_resource (method)">#to_resource</a></span>, <span class='object_link'><a href="ApplicationRecord.html#to_taskable-instance_method" title="ApplicationRecord#to_taskable (method)">#to_taskable</a></span></p>
 
   
 
@@ -226,36 +284,161 @@ updated_at    :datetime         not null</code></pre>
       <div class="method_details first">
   <h3 class="signature first" id="find_for_any-class_method">
   
-    .<strong>find_for_any</strong>(**taskable_options)  &#x21d2; <tt>Object</tt> 
+    .<strong>find_for_any</strong>(**taskable_options)  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="" title="Task (class)">Task</a></span>&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Finds tasks by <span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span>, <span class='object_link'><a href="Unit.html" title="Unit (class)">Unit</a></span> or <span class='object_link'><a href="User.html" title="User (class)">User</a></span> ids</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>taskable_options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>taskables for which to return tasks</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>**taskable_options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:facility_ids,</span>
+          <span class="type">(<tt>Array&lt;Integer&gt;</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>list of <span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span> ID&#39;s for which to return tasks</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:unit_ids,</span>
+          <span class="type">(<tt>Array&lt;Integer&gt;</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>list of <span class='object_link'><a href="Unit.html" title="Unit (class)">Unit</a></span> ID&#39;s for which to return tasks</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:user_ids,</span>
+          <span class="type">(<tt>Array&lt;Integer&gt;</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>list of <span class='object_link'><a href="User.html" title="User (class)">User</a></span> ID&#39;s for which to return tasks</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="" title="Task (class)">Task</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>All relevant tasks</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Eric Hainer &lt;eric@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Tom Reis &lt;tom@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75</pre>
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/task.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'app/models/task.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_for_any'>find_for_any</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_taskable_options'>taskable_options</span><span class='rparen'>)</span>
   <span class='comment'># Provide arrays of taskable ID&#39;s
@@ -277,6 +460,81 @@ updated_at    :datetime         not null</code></pre>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="priority_select_options-class_method">
+  
+    .<strong>priority_select_options</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return select options for priority selection</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>options for a select input to select from available priorities</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Tom Reis &lt;tom@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+88
+89
+90</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/task.rb', line 88</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_priority_select_options'>priority_select_options</span>
+  <span class='id identifier rubyid_options_for_select'>options_for_select</span><span class='lparen'>(</span><span class='id identifier rubyid_priority_options'>priority_options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
   <div id="instance_method_details" class="method_details_list">
@@ -284,29 +542,145 @@ updated_at    :datetime         not null</code></pre>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="visible_to-instance_method">
+  <h3 class="signature first" id="priority_display-instance_method">
   
-    #<strong>visible_to</strong>  &#x21d2; <tt>Object</tt> 
-  
-
+    #<strong>priority_display</strong>  &#x21d2; <tt>String</tt> 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return the display value of of the <span class='object_link'><a href="" title="Task (class)">Task</a></span> priority</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>display value of <span class='object_link'><a href="" title="Task (class)">Task</a></span> priority or <code>nil</code> if no priority
+specified</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Tom Reis &lt;tom@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-53
-54
-55
-56
-57
-58</pre>
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/task.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'app/models/task.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_priority_display'>priority_display</span>
+  <span class='id identifier rubyid_priority'>priority</span><span class='op'>&amp;.</span><span class='id identifier rubyid_capitalize'>capitalize</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="visible_to-instance_method">
+  
+    #<strong>visible_to</strong>  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="User.html" title="User (class)">User</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return all users who can see <span class='object_link'><a href="" title="Task (class)">Task</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="User.html" title="User (class)">User</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Tom Reis &lt;tom@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+74
+75
+76
+77
+78
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/task.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_visible_to'>visible_to</span>
   <span class='kw'>if</span>    <span class='id identifier rubyid_created?'>created?</span> <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="User.html" title="User (class)">User</a></span></span><span class='period'>.</span><span class='id identifier rubyid_with_role'>with_role</span><span class='lparen'>(</span><span class='symbol'>:member</span><span class='comma'>,</span> <span class='id identifier rubyid_taskable'>taskable</span><span class='rparen'>)</span>
@@ -324,7 +698,7 @@ updated_at    :datetime         not null</code></pre>
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 30 15:06:39 2017 by
+  Generated on Fri Nov 10 12:10:51 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.2).
 </div>

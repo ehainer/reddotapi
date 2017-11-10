@@ -119,6 +119,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#city_state_address-instance_method" title="#city_state_address (instance method)">#<strong>city_state_address</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#display_name-instance_method" title="#display_name (instance method)">#<strong>display_name</strong>  &#x21d2; Object </a>
     
 
@@ -134,6 +156,30 @@
 
   
     <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#facility_flags_display-instance_method" title="#facility_flags_display (instance method)">#<strong>facility_flags_display</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a list of flags set for the facility.</p>
+</div></span>
   
 </li>
 
@@ -160,6 +206,77 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#local_time-instance_method" title="#local_time (instance method)">#<strong>local_time</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the current local time for the <span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span> in the format “8:15 PM”.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#street_address-instance_method" title="#street_address (instance method)">#<strong>street_address</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tz_offset-instance_method" title="#tz_offset (instance method)">#<strong>tz_offset</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the timezone offset (in milliseconds) for the Facility&#39;s
+timezone.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -171,7 +288,37 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="display_name-instance_method">
+  <h3 class="signature first" id="city_state_address-instance_method">
+  
+    #<strong>city_state_address</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/decorators/facility_decorator.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_city_state_address'>city_state_address</span>
+  <span class='id identifier rubyid_default_address'>default_address</span><span class='op'>&amp;.</span><span class='id identifier rubyid_city_state'>city_state</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="display_name-instance_method">
   
     #<strong>display_name</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -201,6 +348,76 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="facility_flags_display-instance_method">
+  
+    #<strong>facility_flags_display</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a list of flags set for the facility</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Tom Reis &lt;tom@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/decorators/facility_decorator.rb', line 48</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_facility_flags_display'>facility_flags_display</span>
+  <span class='id identifier rubyid_facility_flags'>facility_flags</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:display_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="label-instance_method">
   
     #<strong>label</strong>  &#x21d2; <tt>Object</tt> 
@@ -223,7 +440,188 @@
       <pre class="code"><span class="info file"># File 'app/decorators/facility_decorator.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_label'>label</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RD</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_facility_id'>facility_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="Storage.html" title="Storage (class)">Storage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="Storage.html#config-class_method" title="Storage.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_facility_prefix'>facility_prefix</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_facility_id'>facility_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="local_time-instance_method">
+  
+    #<strong>local_time</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the current local time for the <span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span> in the format “8:15 PM”</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>void</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Eric Hainer &lt;eric@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/decorators/facility_decorator.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_local_time'>local_time</span>
+  <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>%-l:%M %p</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="street_address-instance_method">
+  
+    #<strong>street_address</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/decorators/facility_decorator.rb', line 12</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_street_address'>street_address</span>
+  <span class='id identifier rubyid_default_address'>default_address</span><span class='op'>&amp;.</span><span class='id identifier rubyid_street'>street</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tz_offset-instance_method">
+  
+    #<strong>tz_offset</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the timezone offset (in milliseconds) for the Facility&#39;s
+timezone</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The timezone offset in milliseconds</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Eric Hainer &lt;eric@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/decorators/facility_decorator.rb', line 38</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tz_offset'>tz_offset</span>
+  <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_utc_offset'>utc_offset</span> <span class='op'>*</span> <span class='int'>1000</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -235,7 +633,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 30 15:06:40 2017 by
+  Generated on Fri Nov 10 12:10:52 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.2).
 </div>

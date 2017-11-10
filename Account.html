@@ -249,8 +249,32 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Return all facilities the <span class='object_link'><a href="User.html" title="User (class)">User</a></span> has active <span class='object_link'><a href="" title="Account (class)">Account</a></span> occupancies at This
-will not include facilities the <span class='object_link'><a href="User.html" title="User (class)">User</a></span> might have inactive reservations
-(Occupancy#active <code>false</code>) at.</p>
+will not include facilities the <span class='object_link'><a href="User.html" title="User (class)">User</a></span> might have inactive reservations at.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#gate-instance_method" title="#gate (instance method)">#<strong>gate</strong>(facility)  &#x21d2; Gate </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Return the <span class='object_link'><a href="Gate.html" title="Gate (class)">Gate</a></span> instance associated with the current account and given
+<span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span>.</p>
 </div></span>
   
 </li>
@@ -342,7 +366,7 @@ fails, instead returning <code>false</code>.</p>
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="ApplicationRecord.html#to_taskable-instance_method" title="ApplicationRecord#to_taskable (method)">#to_taskable</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="ApplicationRecord.html#to_resource-instance_method" title="ApplicationRecord#to_resource (method)">#to_resource</a></span>, <span class='object_link'><a href="ApplicationRecord.html#to_taskable-instance_method" title="ApplicationRecord#to_taskable (method)">#to_taskable</a></span></p>
 
   
   <div id="instance_attr_details" class="attr_details">
@@ -597,12 +621,12 @@ account holder</p>
       <pre class="lines">
 
 
-101
-102
-103</pre>
+126
+127
+128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/account.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'app/models/account.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_alternates'>alternates</span>
   <span class='id identifier rubyid_users'>users</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='period'>.</span><span class='id identifier rubyid_not'>not</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_holder_id'>holder_id</span><span class='rparen'>)</span>
@@ -625,8 +649,7 @@ account holder</p>
   <div class="discussion">
     
 <p>Return all facilities the <span class='object_link'><a href="User.html" title="User (class)">User</a></span> has active <span class='object_link'><a href="" title="Account (class)">Account</a></span> occupancies at This
-will not include facilities the <span class='object_link'><a href="User.html" title="User (class)">User</a></span> might have inactive reservations
-(Occupancy#active <code>false</code>) at</p>
+will not include facilities the <span class='object_link'><a href="User.html" title="User (class)">User</a></span> might have inactive reservations at</p>
 
 
   </div>
@@ -689,19 +712,115 @@ will not include facilities the <span class='object_link'><a href="User.html" ti
       <pre class="lines">
 
 
-60
-61
-62
-63
-64</pre>
+85
+86
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/account.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'app/models/account.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_facilities'>facilities</span><span class='lparen'>(</span><span class='id identifier rubyid_inactive'>inactive</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_results'>results</span> <span class='op'>=</span> <span class='id identifier rubyid_inactive'>inactive</span> <span class='op'>?</span> <span class='id identifier rubyid_occupancies'>occupancies</span><span class='period'>.</span><span class='id identifier rubyid_active'>active</span> <span class='op'>:</span> <span class='id identifier rubyid_occupancies'>occupancies</span>
+  <span class='id identifier rubyid_results'>results</span> <span class='op'>=</span> <span class='id identifier rubyid_inactive'>inactive</span> <span class='op'>?</span> <span class='id identifier rubyid_occupancies'>occupancies</span> <span class='op'>:</span> <span class='id identifier rubyid_occupancies'>occupancies</span><span class='period'>.</span><span class='id identifier rubyid_active'>active</span>
   <span class='id identifier rubyid_results'>results</span> <span class='op'>=</span> <span class='id identifier rubyid_results'>results</span><span class='period'>.</span><span class='id identifier rubyid_joins'>joins</span><span class='lparen'>(</span><span class='label'>unit:</span> <span class='lbracket'>[</span><span class='symbol'>:facility</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_group'>group</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>facilities.id, occupancies.id</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_order'>order</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>occupancies.id ASC</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_pluck'>pluck</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>facilities.id</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span>
   <span class='const'><span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_results'>results</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="gate-instance_method">
+  
+    #<strong>gate</strong>(facility)  &#x21d2; <tt><span class='object_link'><a href="Gate.html" title="Gate (class)">Gate</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return the <span class='object_link'><a href="Gate.html" title="Gate (class)">Gate</a></span> instance associated with the current account and given
+<span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>facility</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The facility instance to fetch the gate for</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Gate.html" title="Gate (class)">Gate</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The gate associated with <span class='object_link'><a href="" title="Account (class)">Account</a></span> and <span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Eric Hainer &lt;eric@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71
+72
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/account.rb', line 71</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_gate'>gate</span><span class='lparen'>(</span><span class='id identifier rubyid_facility'>facility</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_gates'>gates</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>facility:</span> <span class='id identifier rubyid_facility'>facility</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -777,20 +896,20 @@ errors from the <span class='object_link'><a href="Occupancy.html" title="Occupa
       <pre class="lines">
 
 
-115
-116
-117
-118
-119
-120</pre>
+140
+141
+142
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/account.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'app/models/account.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reserve'>reserve</span><span class='lparen'>(</span><span class='id identifier rubyid_unit'>unit</span><span class='comma'>,</span> <span class='id identifier rubyid_move_in'>move_in</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_reserve!'>reserve!</span><span class='lparen'>(</span><span class='id identifier rubyid_unit'>unit</span><span class='comma'>,</span> <span class='id identifier rubyid_move_in'>move_in</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 <span class='kw'>rescue</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>RecordInvalid</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
-  <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_record'>record</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_full_messages'>full_messages</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_m'>m</span><span class='op'>|</span> <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:base</span><span class='comma'>,</span> <span class='id identifier rubyid_m'>m</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_record'>record</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_full_messages'>full_messages</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_m'>m</span><span class='op'>|</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:base</span><span class='comma'>,</span> <span class='id identifier rubyid_m'>m</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -967,13 +1086,13 @@ errors from the <span class='object_link'><a href="Occupancy.html" title="Occupa
       <pre class="lines">
 
 
-136
-137
-138
-139</pre>
+161
+162
+163
+164</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/account.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'app/models/account.rb', line 161</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reserve!'>reserve!</span><span class='lparen'>(</span><span class='id identifier rubyid_unit'>unit</span><span class='comma'>,</span> <span class='id identifier rubyid_move_in'>move_in</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_slice!'>slice!</span><span class='lparen'>(</span><span class='symbol'>:moved_out_at</span><span class='comma'>,</span> <span class='symbol'>:due_day</span><span class='rparen'>)</span>
@@ -1090,24 +1209,24 @@ If omitted, returns all units at all facilities</p>
       <pre class="lines">
 
 
-83
-84
-85
-86
-87
-88
-89
-90
-91</pre>
+108
+109
+110
+111
+112
+113
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/account.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'app/models/account.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_units'>units</span><span class='lparen'>(</span><span class='id identifier rubyid_inactive'>inactive</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_facilities'>facilities</span><span class='rparen'>)</span>
   <span class='comment'># Form array of facility ids to filter by
-</span>  <span class='id identifier rubyid_facilities'>facilities</span> <span class='op'>=</span> <span class='id identifier rubyid_facilities'>facilities</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_facility'>facility</span><span class='op'>|</span> <span class='id identifier rubyid_facility'>facility</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_facility'>facility</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>:</span> <span class='id identifier rubyid_facility'>facility</span> <span class='rbrace'>}</span> 
+</span>  <span class='id identifier rubyid_facilities'>facilities</span> <span class='op'>=</span> <span class='id identifier rubyid_facilities'>facilities</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_facility'>facility</span><span class='op'>|</span> <span class='id identifier rubyid_facility'>facility</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_facility'>facility</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>:</span> <span class='id identifier rubyid_facility'>facility</span> <span class='rbrace'>}</span>
 
-  <span class='id identifier rubyid_results'>results</span> <span class='op'>=</span> <span class='id identifier rubyid_inactive'>inactive</span> <span class='op'>?</span> <span class='id identifier rubyid_occupancies'>occupancies</span><span class='period'>.</span><span class='id identifier rubyid_active'>active</span><span class='period'>.</span><span class='id identifier rubyid_includes'>includes</span><span class='lparen'>(</span><span class='label'>unit:</span> <span class='lbracket'>[</span><span class='symbol'>:facility</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_occupancies'>occupancies</span><span class='period'>.</span><span class='id identifier rubyid_includes'>includes</span><span class='lparen'>(</span><span class='label'>unit:</span> <span class='lbracket'>[</span><span class='symbol'>:facility</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_results'>results</span> <span class='op'>=</span> <span class='id identifier rubyid_inactive'>inactive</span> <span class='op'>?</span> <span class='id identifier rubyid_occupancies'>occupancies</span><span class='period'>.</span><span class='id identifier rubyid_includes'>includes</span><span class='lparen'>(</span><span class='label'>unit:</span> <span class='lbracket'>[</span><span class='symbol'>:facility</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_occupancies'>occupancies</span><span class='period'>.</span><span class='id identifier rubyid_active'>active</span><span class='period'>.</span><span class='id identifier rubyid_includes'>includes</span><span class='lparen'>(</span><span class='label'>unit:</span> <span class='lbracket'>[</span><span class='symbol'>:facility</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_results'>results</span> <span class='op'>=</span> <span class='id identifier rubyid_results'>results</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>facilities.id</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_facilities'>facilities</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_facilities'>facilities</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
   <span class='id identifier rubyid_results'>results</span> <span class='op'>=</span> <span class='id identifier rubyid_results'>results</span><span class='period'>.</span><span class='id identifier rubyid_pluck'>pluck</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>units.id</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span>
   <span class='const'><span class='object_link'><a href="Unit.html" title="Unit (class)">Unit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_results'>results</span><span class='rparen'>)</span>
@@ -1122,7 +1241,7 @@ If omitted, returns all units at all facilities</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 30 15:06:40 2017 by
+  Generated on Fri Nov 10 12:10:51 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.2).
 </div>

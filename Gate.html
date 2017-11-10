@@ -117,6 +117,10 @@ code        :string
 created_at  :datetime         not null
 updated_at  :datetime         not null</code></pre>
 
+<p>Indexes</p>
+
+<pre class="code ruby"><code class="ruby">index_gates_on_code_and_facility_id  (code,facility_id) UNIQUE</code></pre>
+
 
   </div>
 </div>
@@ -130,6 +134,77 @@ updated_at  :datetime         not null</code></pre>
 
 
 
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#setup-class_method" title="setup (class method)">.<strong>setup</strong>(account)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Given an <span class='object_link'><a href="Account.html" title="Account (class)">Account</a></span>, iterates over all active <span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span> and ensures that a
+gate code exists for each one If a gate code already exists for the account
+at a given facility, nothing is done.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generate-instance_method" title="#generate (instance method)">#<strong>generate</strong>(length = 6, **options)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Generate a valid, unique gate code specific to the <span class='object_link'><a href="Account.html" title="Account (class)">Account</a></span> and
+<span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span>.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
 
   
   
@@ -137,17 +212,291 @@ updated_at  :datetime         not null</code></pre>
   
   
   
-  <h2>Method Summary</h2>
+  
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="ApplicationRecord.html#to_taskable-instance_method" title="ApplicationRecord#to_taskable (method)">#to_taskable</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="ApplicationRecord.html#to_resource-instance_method" title="ApplicationRecord#to_resource (method)">#to_resource</a></span>, <span class='object_link'><a href="ApplicationRecord.html#to_taskable-instance_method" title="ApplicationRecord#to_taskable (method)">#to_taskable</a></span></p>
 
   
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="setup-class_method">
+  
+    .<strong>setup</strong>(account)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Given an <span class='object_link'><a href="Account.html" title="Account (class)">Account</a></span>, iterates over all active <span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span> and ensures that a
+gate code exists for each one If a gate code already exists for the account
+at a given facility, nothing is done</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>account</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Account.html" title="Account (class)">Account</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The account to create gate codes for</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>void</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Eric Hainer &lt;eric@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45
+46
+47
+48
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/gate.rb', line 43</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_account'>account</span><span class='period'>.</span><span class='id identifier rubyid_facilities'>facilities</span><span class='lparen'>(</span><span class='kw'>false</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_facility'>facility</span><span class='op'>|</span>
+    <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="" title="Gate (class)">Gate</a></span></span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_account'>account</span><span class='comma'>,</span> <span class='label'>facility:</span> <span class='id identifier rubyid_facility'>facility</span><span class='rparen'>)</span>
+      <span class='const'><span class='object_link'><a href="" title="Gate (class)">Gate</a></span></span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_account'>account</span><span class='comma'>,</span> <span class='label'>facility:</span> <span class='id identifier rubyid_facility'>facility</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="generate-instance_method">
+  
+    #<strong>generate</strong>(length = 6, **options)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Generate a valid, unique gate code specific to the <span class='object_link'><a href="Account.html" title="Account (class)">Account</a></span> and <span class='object_link'><a href="Facility.html" title="Facility (class)">Facility</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>length</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>6</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The length of the code, excluding asterisks and pound signs</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>**options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:prefix</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The string to prefix the code with</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:suffix</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>The string to suffix the code with</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The gate code</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Eric Hainer &lt;eric@commercekitchen.com&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65
+66
+67
+68
+69
+70
+71</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/gate.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='id identifier rubyid_length'>length</span><span class='op'>=</span><span class='int'>6</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_candidate'>candidate</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>facility_id:</span> <span class='id identifier rubyid_facility_id'>facility_id</span><span class='comma'>,</span> <span class='label'>account_id:</span> <span class='id identifier rubyid_account_id'>account_id</span><span class='comma'>,</span> <span class='label'>code:</span> <span class='id identifier rubyid_candidate'>candidate</span><span class='lparen'>(</span><span class='id identifier rubyid_length'>length</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_with_indifferent_access'>with_indifferent_access</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
+  <span class='kw'>while</span> <span class='const'><span class='object_link'><a href="" title="Gate (class)">Gate</a></span></span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_candidate'>candidate</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_candidate'>candidate</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>facility_id:</span> <span class='id identifier rubyid_facility_id'>facility_id</span><span class='comma'>,</span> <span class='label'>account_id:</span> <span class='id identifier rubyid_account_id'>account_id</span><span class='comma'>,</span> <span class='label'>code:</span> <span class='id identifier rubyid_candidate'>candidate</span><span class='lparen'>(</span><span class='id identifier rubyid_length'>length</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_with_indifferent_access'>with_indifferent_access</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_candidate'>candidate</span><span class='lbracket'>[</span><span class='symbol'>:code</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 30 15:06:39 2017 by
+  Generated on Fri Nov 10 12:10:51 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.2).
 </div>
